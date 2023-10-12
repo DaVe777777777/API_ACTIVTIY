@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wine List</title>
+    <link rel="icon" href="wine_logo.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+* {
+            margin: 0;
+            padding: 0;
+            font-family: "Roboto", sans-serif;
+        }
+
+
+        .header {
+            width: 100%;
+            background-color: black;
+            background-size: cover;
+            height: 18vh;
+        }
+
+        nav {
+            position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    padding: 0% 7%;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 999;
+    background-color: black;
+        }
+
+        nav img {
+            width: 18vh;
+            
+            
+        }
+
+        .nav-links {
+            flex: 1;
+            text-align: center;
+
+        }
+
+        .nav-links ul li {
+            list-style: none;
+            display: inline-block;
+            padding: 0 50px;
+            position: relative;
+        }
+
+        .nav-links ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: bolder;
+        }
+
+        .nav-links ul li a::after {
+            content: "";
+            width: 0%;
+            height: 2px;
+            background: red;
+            display: block;
+            margin: auto;
+            transition: 0.5s;
+        }
+
+        .nav-links ul li a:hover::after {
+            width: 100%;
+        }
+
+        nav .bi {
+            display: none;
+        }
+
+    
+
+        @media (max-width: 768px) {
+
+.header {
+    height: 20vh;
+}
+
+.nav-links ul li {
+    display: block;
+    padding: 20px 12px;
+}
+
+.nav-links {
+    position: absolute;
+    background: black;
+    height: 100vh;
+    width: 200px;
+    top: 0;
+    right: -200px;
+    text-align: left;
+    z-index: 2;
+    transition: 1s;
+    padding-top: 20px;
+    border-left: 2px solid white;
+    border-bottom: 2px solid white;
+}
+
+.nav-links ul {
+    padding: 30px;
+}
+
+
+nav .bi {
+    display: block;
+    color: white;
+    margin: 10px;
+    font-size: 22px;
+    cursor: pointer;
+}
+}
+
+
+        /* Rest of your CSS */
+        body {
+            display: flex;
+            flex-direction: column; /* Place content below the navbar */
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: darkred;
+        }
+        .wine-item {
+            text-align: center;
+            margin: 20px;
+            color: white;
+            padding: 25px; 
+            border: 2px solid white; 
+            border-radius: 10px;
+            box-shadow: 0 0 10px white;
+            
+        }
+        .wine-item h2{
+            font-size: 5vh;
+            margin-bottom: 20px;
+            
+        }
+        .wine-item p{
+            font-weight: bolder;
+            border-bottom: 1px solid white;
+            font-size: larger;
+        }
+        .wine h1{
+            color: white;
+            font-size: 10vh;
+            text-align: center;
+            margin-top: 5vh;
+        }
+
+        footer {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: relative; 
+            width: 100%;
+            bottom: 0;
+        }
+
+        
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <section class="header">
+        <nav>
+            <a href="index.html"><img src="wine.png" /></a>
+            <div class="nav-links" id="navLinks">
+                <i class="bi bi-x-lg" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="red.html">RED WINE</a></li>
+                    <li><a href="sparkling.html">SPARKLING</a></li>
+                    <li> <a href="dessert.html">DESSERT</a></li>
+                </ul>
+            </div>
+            <i class="bi bi-list" onclick="showMenu()"></i>
+        </nav>
+    </section>
+    
+    <section class="wine">
+        <div id="wine-list">
+            <h1>RED WINE</h1>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Wine. All Rights Reserved.</p>
+    </footer>
+    
+
+    <script>
+        // Define the URL of the API
+        const apiUrl = 'https://api.sampleapis.com/wines/reds';
+
+        // Select the container element
+        const wineListContainer = document.getElementById('wine-list');
+
+        // Fetch data from the API
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                // Display at least 5 items
+                const winesToDisplay = data.slice(1, 6);
+
+                // Process the data and display it in the container
+                winesToDisplay.forEach(wine => {
+                    const wineItem = document.createElement('div');
+                    wineItem.classList.add('wine-item');
+                    
+                    // Access the rating average
+                    const ratingAverage = wine.rating && wine.rating.average ? wine.rating.average : 'N/A';
+                    
+                    wineItem.innerHTML = `
+                        
+                    <h2>${wine.wine}</h2>
+                        <img src="${wine.image}" alt="${wine.wine}" width="100">
+                        <p>Winery: ${wine.winery}</p>
+                        <p>Rating Average: ${wine.rating.average}</p>
+                        <p>Rating Reviews: ${wine.rating.reviews}</p>
+                        <p>Location: ${wine.location}</p>
+                    `;
+                    wineListContainer.appendChild(wineItem);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    </script>
+
+<script>
+    var navLinks = document.getElementById("navLinks");
+
+    function showMenu() {
+        navLinks.style.right = "0";
+    }
+    function hideMenu() {
+        navLinks.style.right = "-200px";
+    }
+</script>
+
+</body>
+</html>

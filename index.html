@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wine List</title>
+    <link rel="icon" href="wine_logo.png" type="image/x-icon">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "Roboto", sans-serif;
+        }
+
+        .header {
+            width: 100%;
+            background-size: cover;
+            height: 18vh;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            padding: 0% 7%;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 999;
+            background-color: black;
+        }
+
+        nav img {
+            width: 18vh;
+        }
+
+        .nav-links {
+            flex: 1;
+            text-align: center;
+        }
+
+        .nav-links ul li {
+            list-style: none;
+            display: inline-block;
+            padding: 0 50px;
+            position: relative;
+        }
+
+        .nav-links ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: bolder;
+        }
+
+        .nav-links ul li a::after {
+            content: "";
+            width: 0%;
+            height: 2px;
+            background: red;
+            display: block;
+            margin: auto;
+            transition: 0.5s;
+        }
+
+        .nav-links ul li a:hover::after {
+            width: 100%;
+        }
+
+        nav .bi {
+            display: none;
+        }
+
+
+        body {
+            background-image: url('bg.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .home {
+
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            color: white;
+            position: relative;
+            min-height: 80vh;
+        }
+
+        .content {
+            padding: 20px;
+            text-align: left;
+        }
+
+        .quote {
+            font-family: 'Elegant Font';
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .see-wines-button {
+            background-color: white;
+            color: black;
+            padding: 15px 30px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .see-wines-button:hover {
+            background-color: black;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                height: 20vh;
+            }
+
+            .nav-links ul li {
+                display: block;
+                padding: 20px 12px;
+            }
+
+            .nav-links {
+                position: absolute;
+                background: black;
+                height: 100vh;
+                width: 200px;
+                top: 0;
+                right: -200px;
+                text-align: left;
+                z-index: 2;
+                transition: 1s;
+                padding-top: 20px;
+                border-left: 2px solid white;
+                border-bottom: 2px solid white;
+            }
+
+            .nav-links ul {
+                padding: 30px;
+            }
+
+            nav .bi {
+                display: block;
+                color: white;
+                margin: 10px;
+                font-size: 22px;
+                cursor: pointer;
+            }
+            
+            .home {
+                
+                padding-left: 50px;
+            }
+
+            .quote {
+                font-size: 70px;
+            }
+
+            .see-wines-button {
+                padding: 10px 20px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="header">
+        <nav>
+            <a href="index.html"><img src="wine.png" /></a>
+            <div class="nav-links" id="navLinks">
+                <i class="bi bi-x-lg" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="red.html">RED WINE</a></li>
+                    <li><a href="sparkling.html">SPARKLING</a></li>
+                    <li><a href="dessert.html">DESSERT</a></li>
+                </ul>
+            </div>
+            <i class="bi bi-list" onclick="showMenu()"></i>
+        </nav>
+    </section>
+
+    <section class="home">
+        <div class="content">
+            <div class="quote">Save water, drink wine</div>
+            <br>
+            <a href="red.html" class="see-wines-button">See More Wines</a>
+        </div>
+    </section>
+
+    <script>
+        var navLinks = document.getElementById("navLinks");
+
+        function showMenu() {
+            navLinks.style.right = "0";
+        }
+
+        function hideMenu() {
+            navLinks.style.right = "-200px";
+        }
+    </script>
+
+</body>
+
+</html>
